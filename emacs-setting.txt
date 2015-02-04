@@ -1,10 +1,86 @@
+
+
+(require 'tabbar)
+(global-set-key [(f3)] 'tabbar-mode)
+(add-hook 'emacs-startup-hook (lambda ()
+                                (tabbar-mode)
+                                ))
+
+(require 'sr-speedbar)
+
+(add-hook 'emacs-startup-hook (lambda ()
+                                (sr-speedbar-open)
+                                ))
+(global-set-key [(f4)] 'sr-speedbar-toggle)
+
+;;==============================================================================
+;;speedbar基本设置
+;;==============================================================================
+;; 左侧显示
+(setq sr-speedbar-right-side nil)
+(setq sr-speedbar-open t)
+;; 右侧显示
+;;(setq sr-speedbar-right-side t)
+
+;; 排序
+(setq speedbar-sort-tags t)
+
+;; 不显示图标
+(setq speedbar-use-images nil)
+
+;; 自动刷新
+(setq sr-speedbar-auto-refresh t)
+
+;; prevent the speedbar to update the current state, since it is always changing
+;;(setq dframe-update-speed t)   
+
+;; 开启时删除其他窗口
+;;(setq sr-speedbar-delete-windows t)
+
+;; 设置宽度
+(setq sr-speedbar-max-width 35) ;;最大宽度
+(setq sr-speedbar-width 25) ;;宽度
+
+;; 显示所有格式文件
+(setq speedbar-show-unknown-files t)
+
+;;(setq sr-speedbar-right-side nil)
+;;(setq sr-speedbar-width 35)
+;;(setq speedbar-show-unknown-files t)
+;;(setq dframe-update-speed t)        ;; prevent the speedbar to update the current state, since it is always changing
+
+(autoload 'speedbar-frame-mode "speedbar" "Popup a speedbar frame" t)
+(autoload 'speedbar-get-focus "speedbar" "Jump to speedbar frame" t)
+
+;; inhibit tags grouping and sorting 
+(setq speedbar-tag-hierarchy-method '(speedbar-simple-group-tag-hierarchy) ) 
+
+;;最后这个的缺省值是 
+;;(defcustom speedbar-tag-hierarchy-method '(speedbar-prefix-group-tag-hierarchy speedbar-trim-words-tag-hierarchy))
+;;它会将tags排列、提取前缀、并分组。但通常都希望按照 tag出现行号的先后依次排列，就像vim的taglist一样， 所以改成speedbar-simple-group-tag-hierarchy。
+
+
+;; fix speedbar in left, and set auto raise mode 
+;;(add-hook 'speedbar-mode-hook 
+;;    (lambda () 
+;;        (auto-raise-mode 1) 
+;;        (add-to-list 'speedbar-frame-parameters '(top . 40)) 
+;;        (add-to-list 'speedbar-frame-parameters '(left . 0))))
+
+
+(provide 'speedbar-settings)
+
 (require 'molokai-theme)
- 
+
 (show-paren-mode 1)
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(show-paren-mode t))
-(custom-set-faces
- '(default ((t (:family "Courier New" :foundry "outline" :slant normal :weight normal :height 120 :width normal)))))
+
+(setq auto-save-default nil)
  
 (switch-to-buffer buffer-file-name)
 (delete-other-windows)
@@ -27,6 +103,9 @@
 ;(add-to-list 'ac-dictionary-directories "d:/emacs-24.3/lisp/auto-complete-1.3.1//ac-dict")
 ;(ac-config-default)
 
+(require 'sass-mode)
+(require 'scss-mode)
+
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
@@ -42,6 +121,37 @@
 (add-to-list 'ac-dictionary-directories "f:/emacs-24.4-bin-i686-pc-mingw32/auto-complete-1.3.1//ac-dict")
 (ac-config-default)
 (add-to-list 'ac-modes 'web-mode)
+(add-to-list 'ac-modes 'scss-mode)
+(add-to-list 'ac-modes 'html-mode)
 
 
-
+;; 编码设置 begin
+(set-language-environment 'Chinese-GB)
+;; default-buffer-file-coding-system变量在emacs23.2之后已被废弃，使用buffer-file-coding-system代替
+(set-default buffer-file-coding-system 'utf-8-unix)
+(set-default-coding-systems 'utf-8-unix)
+(setq-default pathname-coding-system 'euc-cn)
+(setq file-name-coding-system 'euc-cn)
+;; 另外建议按下面的先后顺序来设置中文编码识别方式。
+;; 重要提示:写在最后一行的，实际上最优先使用; 最前面一行，反而放到最后才识别。
+;; utf-16le-with-signature 相当于 Windows 下的 Unicode 编码，这里也可写成
+;; utf-16 (utf-16 实际上还细分为 utf-16le, utf-16be, utf-16le-with-signature等多种)
+(prefer-coding-system 'cp950)
+(prefer-coding-system 'gb2312)
+(prefer-coding-system 'cp936)
+(prefer-coding-system 'gb18030)
+;(prefer-coding-system 'utf-16le-with-signature)
+(prefer-coding-system 'utf-16)
+;; 新建文件使用utf-8-unix方式
+;; 如果不写下面两句，只写
+;; (prefer-coding-system 'utf-8)
+;; 这一句的话，新建文件以utf-8编码，行末结束符平台相关
+(prefer-coding-system 'utf-8-dos)
+(prefer-coding-system 'utf-8-unix)
+;; 编码设置 end
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Courier New" :foundry "outline" :slant normal :weight normal :height 120 :width normal)))))
