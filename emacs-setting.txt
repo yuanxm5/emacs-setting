@@ -1,5 +1,4 @@
-
-
+(require 'LazyCatTheme)
 (require 'tabbar)
 (global-set-key [(f3)] 'tabbar-mode)
 (add-hook 'emacs-startup-hook (lambda ()
@@ -70,7 +69,7 @@
 
 (provide 'speedbar-settings)
 
-(require 'molokai-theme)
+;(require 'molokai-theme)
 
 (show-paren-mode 1)
 (custom-set-variables
