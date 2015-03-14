@@ -1,4 +1,8 @@
+(add-to-list 'load-path "/home/yuanxm/emacsSetting/theme") 
+(setq auto-save-default nil)
+(setq backup-inhibited t);;不产生备份 
 (require 'LazyCatTheme)
+
 (require 'tabbar)
 (global-set-key [(f3)] 'tabbar-mode)
 (add-hook 'emacs-startup-hook (lambda ()
@@ -7,9 +11,9 @@
 
 (require 'sr-speedbar)
 
-(add-hook 'emacs-startup-hook (lambda ()
-                                (sr-speedbar-open)
-                                ))
+;(add-hook 'emacs-startup-hook (lambda ()
+;                                (sr-speedbar-open)
+;                                ))
 (global-set-key [(f4)] 'sr-speedbar-toggle)
 
 ;;==============================================================================
@@ -79,7 +83,7 @@
  ;; If there is more than one, they won't work right.
  '(show-paren-mode t))
 
-(setq auto-save-default nil)
+
  
 (switch-to-buffer buffer-file-name)
 (delete-other-windows)
@@ -102,7 +106,7 @@
 ;(add-to-list 'ac-dictionary-directories "d:/emacs-24.3/lisp/auto-complete-1.3.1//ac-dict")
 ;(ac-config-default)
 
-(require 'sass-mode)
+;(require 'sass-mode)
 (require 'scss-mode)
 
 (require 'web-mode)
@@ -115,9 +119,9 @@
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
 
-(add-to-list 'load-path "f:/emacs-24.4-bin-i686-pc-mingw32/auto-complete-1.3.1/")
+(add-to-list 'load-path "~/.emacs.d/")
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "f:/emacs-24.4-bin-i686-pc-mingw32/auto-complete-1.3.1//ac-dict")
+(add-to-list 'ac-dictionary-directories "~/.emacs.d//ac-dict")
 (ac-config-default)
 (add-to-list 'ac-modes 'web-mode)
 (add-to-list 'ac-modes 'scss-mode)
@@ -154,3 +158,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Courier New" :foundry "outline" :slant normal :weight normal :height 120 :width normal)))))
+
+(require 'autopair)
+(autopair-global-mode) ;; enable autopair in all buffers
+
